@@ -1,4 +1,5 @@
 import { login } from '@/api/login'//引入登录 api 接口
+import { getAllUserInfo } from '@/api/login'//引入登录 api 接口
  
 
 const user = {
@@ -15,6 +16,20 @@ const user = {
         })
       })
     },
+
+    //获取所有用户
+    getAllUserInfo({ commit }){
+      return new Promise((resolve, reject) => {
+        getAllUserInfo().then(response => {
+          commit('')
+          resolve(response)
+        }).catch(error => {
+          reject(error)
+        })
+      })
+    },
+
   }
 }
 export default user
+

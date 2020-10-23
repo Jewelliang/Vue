@@ -1,6 +1,6 @@
 <template>
     <div>
-        <img src="../assets/background.jpg" width="1595" height="750">
+        <img src="@/assets/background.jpg" width="1595" height="750">
         <div class="login-panel">
         <Card style="width:300px">
             <p slot="title">欢迎登录</p>
@@ -28,6 +28,8 @@
 </template>
 
 <script>
+import {setCookie} from '@/utils/support'
+
 export default {
     name: 'login',
     data() {
@@ -61,13 +63,15 @@ export default {
             this.$refs.formItem.validate((valid) => {
                 if(valid){
                     this.loading = true;
-                    this.$store.dispatch("Login", this.formItem)
-                    .then(response => {
+                    this.$store.dispatch("Login", this.formItem).then(response  => {
                         this.loading = false;
                         let code = response.data.code;
                         if(code == 200) {
+                            console.log("code=="+code)
+                            setCookie("username",this.formItem.user,15);
+                            setCookie("password",this.formItem.password,15);
                             this.$router.push({
-                                path: "/success",
+                                path: "/home",
                                 query: { data: response.data.data }
                             });
                         } else{
@@ -76,8 +80,9 @@ export default {
                                 query: { message: response.data.message }
                             });
                         }
-                    })
-                    .catch(() => {
+                        
+                        // this.$router.push({path: "/home"})
+                    }).catch(() => {
                         this.loading = false;
                     });                
                 } else{

@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import App from './App.vue'
-import './plugins/ivew.js'
 import router from './router' //引入路由配置
 import store from './store' //引入Vuex状态管理
+import './plugins/iview.js'
 
 Vue.config.productionTip = false
 
